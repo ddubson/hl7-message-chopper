@@ -11,9 +11,13 @@
     <int-file:inbound-channel-adapter directory="classpath:/hl7s"
                                       filename-pattern="*.hl7"
                                       prevent-duplicates="true"
-                                      channel="hl7Channel">
-        <int:poller fixed-rate="2" time-unit="SECONDS" />
+                                      channel="idChannel">
+        <int:poller fixed-rate="3" time-unit="SECONDS"/>
     </int-file:inbound-channel-adapter>
+
+    <int:header-enricher input-channel="idChannel" output-channel="hl7Channel">
+        <int:header name="messageId" ref="idGenerator" method="generateId"/>
+    </int:header-enricher>
 
     <int-file:file-to-string-transformer input-channel="hl7Channel"
                                          output-channel="splinterChannel"/>
@@ -27,22 +31,35 @@
     <int:recipient-list-router id="messageTypeRouter"
                                input-channel="typeRouterChannel"
                                default-output-channel="uncategorizedSegmentChannel">
-        <int:recipient channel="mshChannel" selector-expression="payload.startsWith('MSH')" />
+        <int:recipient channel="mshChannel" selector-expression="payload.startsWith('MSH')"/>
+        <int:recipient channel="pidChannel" selector-expression="payload.startsWith('PID')"/>
+        <int:recipient channel="pv1Channel" selector-expression="payload.startsWith('PV1')"/>
     </int:recipient-list-router>
 
+
+    <int:service-activator id="uncategorizedSegmentPrinterRef"
+                           input-channel="uncategorizedSegmentChannel"
+                           ref="uncategorizedSegmentHandler" method="handle"
+    />
+
+    <int:service-activator id="mshPrinterRef" input-channel="mshChannel"
+                           ref="mshSegmentHandler" method="handle"
+    />
+
+    <int:service-activator id="pidPrinterRef" input-channel="pidChannel"
+                           ref="pidSegmentHandler" method="handle"
+    />
+
+    <int:service-activator id="pv1PrinterRef" input-channel="pv1Channel"
+                           ref="pv1SegmentHandler" method="handle"
+    />
+
     <int:channel id="hl7Channel"/>
-    <int:channel id="outputChannel"/>
+    <int:channel id="idChannel"/>
     <int:channel id="splinterChannel"/>
     <int:channel id="typeRouterChannel"/>
     <int:channel id="uncategorizedSegmentChannel"/>
     <int:channel id="mshChannel"/>
-
-    <int:service-activator id="uncategorizedSegmentPrinterRef"
-                           input-channel="uncategorizedSegmentChannel"
-                           ref="uncategorizedSegmentPrinter" method="print"
-    />
-
-    <int:service-activator id="mshPrinterRef" input-channel="mshChannel"
-                           ref="mshPrinter" method="print"
-    />
+    <int:channel id="pidChannel"/>
+    <int:channel id="pv1Channel"/>
 </beans>

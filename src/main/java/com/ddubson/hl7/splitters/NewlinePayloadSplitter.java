@@ -1,8 +1,7 @@
-package com.ddubson.hl7;
+package com.ddubson.hl7.splitters;
 
 import org.springframework.messaging.Message;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
