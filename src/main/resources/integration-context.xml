@@ -8,22 +8,41 @@
        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
        http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
 
-    <int-file:inbound-channel-adapter directory="classpath:/ccdas"
-                                      filename-pattern="*.xml"
+    <int-file:inbound-channel-adapter directory="classpath:/hl7s"
+                                      filename-pattern="*.hl7"
                                       prevent-duplicates="true"
                                       channel="hl7Channel">
         <int:poller fixed-rate="2" time-unit="SECONDS" />
     </int-file:inbound-channel-adapter>
 
     <int-file:file-to-string-transformer input-channel="hl7Channel"
-                                         output-channel="outputChannel"/>
+                                         output-channel="splinterChannel"/>
+
+    <int:splitter id="newlineSplitter"
+                  ref="newlinePayloadSplitter"
+                  method="split"
+                  input-channel="splinterChannel"
+                  output-channel="typeRouterChannel"/>
+
+    <int:recipient-list-router id="messageTypeRouter"
+                               input-channel="typeRouterChannel"
+                               default-output-channel="uncategorizedSegmentChannel">
+        <int:recipient channel="mshChannel" selector-expression="payload.startsWith('MSH')" />
+    </int:recipient-list-router>
 
     <int:channel id="hl7Channel"/>
     <int:channel id="outputChannel"/>
+    <int:channel id="splinterChannel"/>
+    <int:channel id="typeRouterChannel"/>
+    <int:channel id="uncategorizedSegmentChannel"/>
+    <int:channel id="mshChannel"/>
 
-    <int:service-activator id="printer"
-                           input-channel="outputChannel"
-                           ref="rawHL7Printer"
-                           method="print"
+    <int:service-activator id="uncategorizedSegmentPrinterRef"
+                           input-channel="uncategorizedSegmentChannel"
+                           ref="uncategorizedSegmentPrinter" method="print"
+    />
+
+    <int:service-activator id="mshPrinterRef" input-channel="mshChannel"
+                           ref="mshPrinter" method="print"
     />
 </beans>
