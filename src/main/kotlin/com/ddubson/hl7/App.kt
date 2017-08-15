@@ -10,6 +10,12 @@ import com.ddubson.hl7.printers.RawHL7SegmentPrinter
 import com.ddubson.hl7.segments.handlers.*
 import com.ddubson.hl7.splitters.NewlinePayloadSplitter
 import com.ddubson.hl7.splitters.PayloadSplitter
+import javafx.application.Application
+import javafx.fxml.FXMLLoader
+import javafx.scene.Scene
+import javafx.scene.layout.BorderPane
+import javafx.stage.Stage
+import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
@@ -17,7 +23,26 @@ import org.springframework.context.annotation.ImportResource
 
 @SpringBootApplication
 @ImportResource("integration-context.xml")
-class App {
+class App : Application(), CommandLineRunner {
+    private lateinit var primaryStage: Stage
+
+    override fun start(primaryStage: Stage) {
+        val rootLoader = FXMLLoader(this.javaClass.getResource("/MenuLayout.fxml"))
+        val logPaneLoader = FXMLLoader(this.javaClass.getResource("/LogPane.fxml"))
+
+        val primaryPane: BorderPane = rootLoader.load()
+        primaryPane.bottom = logPaneLoader.load()
+
+        this.primaryStage = primaryStage
+        this.primaryStage.title = "HL7 goodness"
+        this.primaryStage.scene = Scene(primaryPane)
+        primaryStage.show()
+    }
+
+    override fun run(vararg args: String?) {
+        launch(*args)
+    }
+
     @Bean
     fun logAdapter(): LogAdapter {
         return CmdLineLogAdapter()
