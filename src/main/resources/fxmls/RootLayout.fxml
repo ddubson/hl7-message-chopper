@@ -3,10 +3,11 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddubson.hl7.views.MenuLayoutController">
+<BorderPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddubson.hl7.views.RootPaneController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
@@ -28,7 +29,5 @@
             </menus>
         </MenuBar>
     </top>
-   <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
+
 </BorderPane>

@@ -8,9 +8,11 @@
        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
        http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd">
 
-    <int-file:inbound-channel-adapter directory="classpath:/hl7s"
+    <int-file:inbound-channel-adapter id="inboundFileChannelAdapter"
+                                      directory="classpath:/hl7s"
                                       filename-pattern="*.hl7"
                                       prevent-duplicates="true"
+                                      auto-startup="false"
                                       channel="idChannel">
         <int:poller fixed-rate="3" time-unit="SECONDS"/>
     </int-file:inbound-channel-adapter>
