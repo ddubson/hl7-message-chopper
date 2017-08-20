@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddubson.hl7.views.RootPaneController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddubson.hl7.views.RootPaneController">
    <center>
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="270.0" prefWidth="200.0">
+                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="45.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="HL7 Files Read:" />
-                        <Text fx:id="filesReadText" layoutX="100.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="0" wrappingWidth="37.47003173828125" />
+                        <Label layoutX="14.0" layoutY="14.0" text="HL7 Files Read:">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Text fx:id="filesReadText" layoutX="192.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold; -fx-font-size: 25px;" text="0" wrappingWidth="37.47003173828125" />
                      </children>
                   </Pane>
+                  <ListView fx:id="fileList" layoutX="25.0" layoutY="73.0" prefHeight="193.0" prefWidth="200.0" style="-fx-font-size: 16px;" />
                </children>
             </AnchorPane>
             <TextArea id="logField" fx:id="logField" editable="false" prefHeight="347.0" prefWidth="800.0" />
