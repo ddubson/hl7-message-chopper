@@ -1,5 +1,6 @@
-package com.ddubson.hl7.views
+package com.ddubson.hl7.fx.controllers
 
+import com.ddubson.hl7.views.Loggable
 import javafx.application.Platform
 import javafx.collections.ObservableList
 import javafx.fxml.FXML
@@ -7,12 +8,10 @@ import javafx.fxml.Initializable
 import javafx.scene.control.ListView
 import javafx.scene.control.TextArea
 import javafx.scene.text.Text
-import org.springframework.stereotype.Component
 import java.net.URL
 import java.util.*
 
-@Component
-class RootPaneController : Initializable {
+class RootPaneController : Initializable, Loggable {
     private var list : ObservableList<String>? = null
 
     @FXML
@@ -24,7 +23,7 @@ class RootPaneController : Initializable {
     @FXML
     private var fileList: ListView<String>? = null
 
-    fun logToScreen(message: String) {
+    override fun log(message: String) {
         logField!!.text = "${logField!!.text}\n$message"
     }
 

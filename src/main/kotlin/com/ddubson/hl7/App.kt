@@ -1,13 +1,12 @@
 package com.ddubson.hl7
 
+import com.ddubson.hl7.fx.FXLoader
 import javafx.application.Application
 import javafx.application.Application.launch
-import javafx.fxml.FXMLLoader
+import javafx.scene.Parent
 import javafx.scene.Scene
-import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 import javafx.stage.WindowEvent
-import javafx.util.Callback
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ConfigurableApplicationContext
@@ -18,18 +17,11 @@ import org.springframework.integration.endpoint.SourcePollingChannelAdapter
 @ImportResource("integration-context.xml")
 class App : Application() {
     private lateinit var context: ConfigurableApplicationContext
-    private lateinit var root: BorderPane
+    private lateinit var root: Parent
 
     override fun init() {
         context = SpringApplication.run(App::class.java)
-        val rootLoader = FXMLLoader(this.javaClass.getResource("/fxmls/RootLayout.fxml"))
-        rootLoader.controllerFactory = contextCallback()
-        root = rootLoader.load()
-    }
-
-    override fun stop() {
-        context.stop()
-        System.exit(0)
+        root = FXLoader().generateParent(context)
     }
 
     override fun start(primaryStage: Stage) {
@@ -44,8 +36,9 @@ class App : Application() {
         primaryStage.show()
     }
 
-    fun contextCallback(): Callback<Class<*>, Any>? {
-        return Callback { cls -> context.getBean(cls) }
+    override fun stop() {
+        context.stop()
+        System.exit(0)
     }
 }
 

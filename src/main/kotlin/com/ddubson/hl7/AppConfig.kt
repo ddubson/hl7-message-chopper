@@ -10,45 +10,46 @@ import com.ddubson.hl7.printers.RawHL7SegmentPrinter
 import com.ddubson.hl7.segments.handlers.*
 import com.ddubson.hl7.splitters.NewlinePayloadSplitter
 import com.ddubson.hl7.splitters.PayloadSplitter
-import com.ddubson.hl7.views.RootPaneController
+import com.ddubson.hl7.views.Loggable
+import com.ddubson.hl7.fx.controllers.RootPaneController
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class Config {
+class AppConfig {
     @Bean
     fun fileCounter(rootPaneController: RootPaneController): HL7FileCounter {
         return HL7FileCounter(rootPaneController)
     }
 
     @Bean
-    fun logAdapter(rootPaneController: RootPaneController): LogAdapter {
-        return LogPaneLogAdapter(rootPaneController)
+    fun logAdapter(loggable:Loggable): LogAdapter {
+        return LogPaneLogAdapter(loggable)
     }
 
     @Bean
-    fun hl7SegmentPrinter(rootPaneController: RootPaneController): HL7SegmentPrinter {
-        return RawHL7SegmentPrinter(logAdapter(rootPaneController))
+    fun hl7SegmentPrinter(loggable: Loggable): HL7SegmentPrinter {
+        return RawHL7SegmentPrinter(logAdapter(loggable))
     }
 
     @Bean("uncategorizedSegmentHandler")
-    fun uncategorizedSegmentHandler(rootPaneController: RootPaneController): HL7SegmentHandler {
-        return UncategorizedSegmentHandler(hl7SegmentPrinter(rootPaneController), ANSIColor.ANSI_WHITE)
+    fun uncategorizedSegmentHandler(loggable: Loggable): HL7SegmentHandler {
+        return UncategorizedSegmentHandler(hl7SegmentPrinter(loggable), ANSIColor.ANSI_WHITE)
     }
 
     @Bean("mshSegmentHandler")
-    fun mshSegmentHandler(rootPaneController: RootPaneController): HL7SegmentHandler {
-        return MSHSegmentHandler(hl7SegmentPrinter(rootPaneController), ANSIColor.ANSI_YELLOW)
+    fun mshSegmentHandler(loggable: Loggable): HL7SegmentHandler {
+        return MSHSegmentHandler(hl7SegmentPrinter(loggable), ANSIColor.ANSI_YELLOW)
     }
 
     @Bean("pidSegmentHandler")
-    fun pidSegmentHandler(rootPaneController: RootPaneController): HL7SegmentHandler {
-        return PIDSegmentHandler(hl7SegmentPrinter(rootPaneController), ANSIColor.ANSI_GREEN)
+    fun pidSegmentHandler(loggable: Loggable): HL7SegmentHandler {
+        return PIDSegmentHandler(hl7SegmentPrinter(loggable), ANSIColor.ANSI_GREEN)
     }
 
     @Bean("pv1SegmentHandler")
-    fun pv1SegmentHandler(rootPaneController: RootPaneController): HL7SegmentHandler {
-        return PV1SegmentHandler(hl7SegmentPrinter(rootPaneController), ANSIColor.ANSI_CYAN)
+    fun pv1SegmentHandler(loggable: Loggable): HL7SegmentHandler {
+        return PV1SegmentHandler(hl7SegmentPrinter(loggable), ANSIColor.ANSI_CYAN)
     }
 
     @Bean("newlinePayloadSplitter")

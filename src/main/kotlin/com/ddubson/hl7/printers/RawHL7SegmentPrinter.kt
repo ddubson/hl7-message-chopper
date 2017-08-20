@@ -6,7 +6,7 @@ import org.springframework.messaging.Message
 
 class RawHL7SegmentPrinter(val logAdapter: LogAdapter) : HL7SegmentPrinter{
     override fun print(type: String, message: Message<*>, color: ANSIColor) {
-        logAdapter.info("{${message.headers.get("messageId").toString()}} [$type Segment] ${message.payload.toString()}",
+        logAdapter.info("{${message.headers["messageId"].toString()}} [$type Segment] ${message.payload}",
                 color)
     }
 }
