@@ -25,14 +25,11 @@ class App : Application() {
         val rootLoader = FXMLLoader(this.javaClass.getResource("/fxmls/RootLayout.fxml"))
         rootLoader.controllerFactory = contextCallback()
         root = rootLoader.load()
-
-        val logPane = FXMLLoader(this.javaClass.getResource("/fxmls/LogPaneLayout.fxml"))
-        logPane.controllerFactory = contextCallback()
-        root.bottom = logPane.load()
     }
 
     override fun stop() {
         context.stop()
+        System.exit(0)
     }
 
     override fun start(primaryStage: Stage) {

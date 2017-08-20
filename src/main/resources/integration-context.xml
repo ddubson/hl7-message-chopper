@@ -17,6 +17,8 @@
         <int:poller fixed-rate="3" time-unit="SECONDS"/>
     </int-file:inbound-channel-adapter>
 
+    <int:service-activator input-channel="idChannel" ref="fileCounter" method="count" />
+
     <int:header-enricher input-channel="idChannel" output-channel="hl7Channel">
         <int:header name="messageId" ref="idGenerator" method="generateId"/>
     </int:header-enricher>
@@ -57,7 +59,7 @@
     />
 
     <int:channel id="hl7Channel"/>
-    <int:channel id="idChannel"/>
+    <int:publish-subscribe-channel id="idChannel"/>
     <int:channel id="splinterChannel"/>
     <int:channel id="typeRouterChannel"/>
     <int:channel id="uncategorizedSegmentChannel"/>

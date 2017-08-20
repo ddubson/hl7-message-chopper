@@ -1,14 +1,13 @@
 package com.ddubson.hl7.loggers
 
-import com.ddubson.hl7.views.LogPaneController
+import com.ddubson.hl7.views.RootPaneController
 
-class LogPaneLogAdapter(private val logPaneController: LogPaneController) : LogAdapter {
+class LogPaneLogAdapter(private val rootPaneController: RootPaneController) : LogAdapter {
     override fun info(message: String) {
-        logPaneController.logToScreen(message)
+        rootPaneController.logToScreen(message)
     }
 
     override fun info(message: String, color: ANSIColor) {
-        println(message)
-        logPaneController.logToScreen(message)
+        rootPaneController.logToScreen(message)
     }
 }
