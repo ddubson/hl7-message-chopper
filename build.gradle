@@ -1,9 +1,9 @@
 buildscript {
-    ext.springBootVersion = "1.5.6.RELEASE"
-    ext.springVersion = "4.3.10.RELEASE"
-    ext.kotlinVersion = '1.1.4'
-    ext.spek = "1.1.2"
-    ext.junitPlatform = "1.0.0-M4"
+    ext.springBootVersion = "1.5.9.RELEASE"
+    ext.springVersion = "4.3.13.RELEASE"
+    ext.kotlinVersion = '1.2.10'
+    ext.spek = "1.1.5"
+    ext.junitPlatform = "1.0.1"
 
     repositories { mavenCentral() }
 

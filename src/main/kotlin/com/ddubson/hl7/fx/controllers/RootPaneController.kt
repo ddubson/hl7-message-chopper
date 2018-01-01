@@ -32,7 +32,7 @@ class RootPaneController : Initializable, Loggable {
     }
 
     fun addFileNameToFileList(fileName: String) {
-        Platform.runLater({ -> list!!.add(fileName)})
+        Platform.runLater({ list!!.add(fileName)})
     }
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
