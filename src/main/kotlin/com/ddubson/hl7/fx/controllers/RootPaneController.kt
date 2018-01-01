@@ -5,6 +5,7 @@ import javafx.application.Platform
 import javafx.collections.ObservableList
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
+import javafx.scene.control.Label
 import javafx.scene.control.ListView
 import javafx.scene.control.TextArea
 import javafx.scene.text.Text
@@ -22,6 +23,9 @@ class RootPaneController : Initializable, Loggable {
 
     @FXML
     private var fileList: ListView<String>? = null
+
+    @FXML
+    private var messageVersion: Label? = null
 
     override fun log(message: String) {
         logField!!.text = "${logField!!.text}\n$message"
