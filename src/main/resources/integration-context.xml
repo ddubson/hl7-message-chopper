@@ -29,9 +29,14 @@
                            input-channel="hl7ViewChannel"
                            method="updateDetails"
     />
+    <int:service-activator id="rawPrinter"
+                           ref="hl7SegmentPrinter"
+                           input-channel="hl7ViewChannel"
+                           method="handle"
+    />
 
-    <int:channel id="hl7ViewChannel" />
-    <int:channel id="splinterChannel" />
+    <int:publish-subscribe-channel id="hl7ViewChannel"/>
+    <int:channel id="splinterChannel"/>
     <int:channel id="hl7Channel"/>
     <int:publish-subscribe-channel id="idChannel"/>
 </beans>

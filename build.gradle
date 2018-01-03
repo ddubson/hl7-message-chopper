@@ -32,6 +32,8 @@ dependencies {
     compile "org.springframework.integration:spring-integration-core:${springVersion}"
     compile "org.springframework.integration:spring-integration-file:${springVersion}"
     compile 'com.google.guava:guava:21.0'
+    compile "ca.uhn.hapi:hapi:2.3"
+    compile "ca.uhn.hapi:hapi-structures-v23:2.3"
 
     testCompile 'junit:junit:4.12'
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"

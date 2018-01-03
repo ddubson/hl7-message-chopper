@@ -9,7 +9,7 @@
    <center>
       <SplitPane dividerPositions="0.8132832080200502" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="10.0" prefWidth="160.0">
                <children>
                   <fx:include source="MessageDetailsPane.fxml" />
                </children>
