@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddubson.hl7.fx.controllers.RootPaneController">
+<BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddubson.hl7.fx.controllers.RootPaneController">
    <center>
       <SplitPane dividerPositions="0.8132832080200502" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="10.0" prefWidth="160.0">
                <children>
                   <fx:include source="MessageDetailsPane.fxml" />
+                  <Button fx:id="chooseHl7File" layoutX="22.0" layoutY="278.0" mnemonicParsing="false" onAction="#openFile" text="Choose HL7 File..." />
                </children>
             </AnchorPane>
             <TextArea id="logField" fx:id="logField" editable="false" prefHeight="347.0" prefWidth="800.0" />

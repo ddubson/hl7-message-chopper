@@ -6,12 +6,10 @@ import javafx.application.Application.launch
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
-import javafx.stage.WindowEvent
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.context.annotation.ImportResource
-import org.springframework.integration.endpoint.SourcePollingChannelAdapter
 
 @SpringBootApplication
 @ImportResource("integration-context.xml")
@@ -27,12 +25,6 @@ class App : Application() {
     override fun start(primaryStage: Stage) {
         primaryStage.title = "HL7 goodness"
         primaryStage.scene = Scene(root, 600.0, 600.0)
-
-        primaryStage.addEventHandler(WindowEvent.WINDOW_SHOWING, { _ ->
-            val inf = context.getBean("inboundFileChannelAdapter") as SourcePollingChannelAdapter
-            inf.start()
-        })
-
         primaryStage.show()
     }
 

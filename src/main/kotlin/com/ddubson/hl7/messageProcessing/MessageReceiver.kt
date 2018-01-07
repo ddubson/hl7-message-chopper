@@ -18,7 +18,7 @@ class MessageReceiver(private val hl7Parser: Parser,
                 hl7Msg.pid.patientName[0].givenName.value,
                 hl7Msg.pid.patientName[0].familyName.value,
                 Sex.valueOf(hl7Msg.pid.sex.value),
-                Race.valueOf(hl7Msg.pid.race.value))
+                Race.valueOf(hl7Msg.pid.race.value.orEmpty()))
         messageReceiveAction.onMessageReceive(message)
         messageVersionReceiveAction.onMessageVersionReceive(hl7Msg.msh.versionID.value)
         messageTypeReceiveAction.onMessageTypeReceive(hl7Msg.msh.messageType.cm_msg1_MessageType.value)
