@@ -1,21 +1,41 @@
 package com.ddubson.hl7.fx.controllers;
 
-import ca.uhn.hl7v2.model.v23.message.ADT_A01
-import ca.uhn.hl7v2.parser.Parser
+import com.ddubson.hl7.actions.MessageReceiveAction
+import com.ddubson.hl7.actions.MessageTypeReceiveAction
+import com.ddubson.hl7.actions.MessageVersionReceiveAction
+import com.ddubson.hl7.messageProcessing.ProcessedMessage
 import javafx.fxml.FXML
 import javafx.scene.control.Label
-import org.springframework.messaging.Message
+import javafx.scene.control.TextField
 
-class MessageDetailsPane(private val hl7parser: Parser) {
+class MessageDetailsPane : MessageVersionReceiveAction,
+        MessageTypeReceiveAction, MessageReceiveAction {
     @FXML
     private var messageVersion: Label? = null
 
     @FXML
     private var messageType: Label? = null
 
-    fun updateDetails(message: Message<*>) {
-        val hl7msg = hl7parser.parse(message.payload.toString())
-        messageVersion!!.text = hl7msg.version
-        messageType!!.text = (hl7msg as ADT_A01).msh.messageType.messageType.value
+    @FXML
+    private var patientName: TextField? = null
+
+    @FXML
+    private var patientSex: TextField? = null
+
+    @FXML
+    private var patientRace: TextField? = null
+
+    override fun onMessageReceive(message: ProcessedMessage) {
+        this.patientName!!.text = "${message.lastName}, ${message.firstName}"
+        this.patientSex!!.text = message.sex.sex
+        this.patientRace!!.text = message.race
+    }
+
+    override fun onMessageTypeReceive(messageType: String) {
+        this.messageType!!.text = messageType
+    }
+
+    override fun onMessageVersionReceive(messageVersion: String) {
+        this.messageVersion!!.text = messageVersion
     }
 }

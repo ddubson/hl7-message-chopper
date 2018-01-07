@@ -1,10 +1,10 @@
 package com.ddubson.hl7.fx.controllers
 
-import com.ddubson.hl7.views.Loggable
+import com.ddubson.hl7.actions.LogMessageAction
 import javafx.fxml.FXML
 import javafx.scene.control.TextArea
 
-class RootPaneController : Loggable {
+class RootPaneController : LogMessageAction {
     @FXML
     private var logField: TextArea? = null
 
